@@ -123,7 +123,19 @@ import io.javalin.plugin.json.JavalinJson;
     mongoClient.close();
   }
 
-  // @Test
-  // public void
+  @Test
+  public void getAllNotes() throws IOException {
+     // Create our fake Javalin context
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+     noteController.getNotes(ctx);
 
+     assertEquals(200, mockRes.getStatus());
+
+     String result = ctx.resultString();
+     long countNumber = db.getCollection("notes").countDocuments();
+     System.out.println(countNumber);
+     assertEquals(countNumber, JavalinJson.fromJson(result, Note[].class).length);
  }
+
+
+}
