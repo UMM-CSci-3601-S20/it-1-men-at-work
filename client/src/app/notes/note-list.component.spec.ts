@@ -15,13 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { MockUserService } from '../../testing/user.service.mock';
-// Fix for Note class
-// import { User } from './user';
-// Fix for NoteListComponent
-// import { UserListComponent } from './user-list.component';
+import { Note } from './note';
+import { NoteListComponent } from './note-list.component';
 // Fix for NoteService
 // import { UserService } from './user.service';
 import { MatIconModule } from '@angular/material/icon';
+import { splitClasses } from '@angular/compiler';
 
 const COMMON_IMPORTS: any[] = [
   FormsModule,
@@ -41,19 +40,15 @@ const COMMON_IMPORTS: any[] = [
   RouterTestingModule,
 ];
 
-// Fix the User list for Notes List
-describe('User list', () => {
+describe('Note list', () => {
 
-  // Error will be fixed with addition of NLComp
   let noteList: NoteListComponent;
-  // Error will be fixed with addition of NLComp
   let fixture: ComponentFixture<NoteListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
-        // Replace with NLComp
-      // declarations: [UserListComponent],
+      declarations: [NoteListComponent],
         // Provide a test-double instead
         // Replace with NoteService & MockNote
       // providers: [{ provide: UserService, useValue: new MockUserService() }]
@@ -62,15 +57,9 @@ describe('User list', () => {
 
   beforeEach(async(() => {
     TestBed.compileComponents().then(() => {
-      // Error will be fixed with addition of NLComp
       fixture = TestBed.createComponent(NoteListComponent);
       noteList = fixture.componentInstance;
       fixture.detectChanges();
     });
   }));
-
-  it('contains all the notes', () => {
-    // Replace SFUsers w/ SFNotes
-    expect(noteList.serverFilteredUsers.length).toBe(3);
-  });
 });
