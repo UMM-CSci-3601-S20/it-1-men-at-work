@@ -41,13 +41,32 @@ public class NoteController {
   }
 
   public void getNote(Context ctx) {
+    String id = ctx.pathParam("id");
+    Note note;
+
+    try {
+      note = noteCollection.find(eq("_id", new ObjectId(id))).first();
+    } catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested note id wasn't a legal Mongo Object ID.");
+    }
+    if (note == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.json(note);
+    }
 
   }
 
   public void getNotes(Context ctx) {
 
+    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+
+
     String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "desc");
+
+    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
+      .into(new ArrayList<>()));
 
   }
 
