@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Note } from './note';
-// This line will be fixed with the addition of NoteService
-// import { NoteService } from './note.service';
+import { NoteService } from './note.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,20 +15,18 @@ export class NoteListComponent implements OnInit, OnDestroy  {
   public serverFilteredNotes: Note[];
   public filteredNotes: Note[];
 
-  public addDate: Date;
+  public noteDate: Date;
   getNotesSub: Subscription;
 
-  // This line will be fixed with the addition of NoteService
+  // This is the constructor utilizing note service
   // constructor(private noteService: NoteService) {
-
   // }
 
-  // This whole block will be fixed when noteService is merged in.
   // getNotesFromServer(): void {
   //   this.unsub();
   //   // This line will be fixed with the addition of noteService
   //   this.getNotesSub = this.noteService.getNotes({
-  //     noteDate: this.addDate
+  //     addDate: this.noteDate
   //   }).subscribe(returnedNotes => {
   //     this.serverFilteredNotes = returnedNotes;
   //     this.updateFilter();
