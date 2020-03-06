@@ -53,6 +53,9 @@ public class Server {
 
     server.delete("api/users/:id", userController::deleteUser);
 
+    // Get specific note
+    server.get("api/notes/:id", noteController::getNote);
+
     // List users, filtered using query parameters
     server.get("api/users", userController::getUsers);
 

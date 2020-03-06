@@ -42,6 +42,7 @@ public class NoteController {
 
   public void getNote(Context ctx) {
     String id = ctx.pathParam("id");
+
     Note note;
 
     try {
@@ -61,12 +62,11 @@ public class NoteController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-
     String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "desc");
 
-    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
-      .into(new ArrayList<>()));
+    ctx.json(noteCollection.find(new Document())
+    .into(new ArrayList<>()));
 
   }
 
@@ -76,6 +76,22 @@ public class NoteController {
 
   public void deleteNotes(Context ctx) {
 
+  }
+
+    /**
+   * Utility function to generate the md5 hash for a given string
+   *
+   * @param str the string to generate a md5 for
+   */
+  public String md5(String str) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
+
+    String result = "";
+    for (byte b : hashInBytes) {
+      result += String.format("%02x", b);
+    }
+    return result;
   }
 
 }

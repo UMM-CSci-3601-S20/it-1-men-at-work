@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +45,9 @@ import io.javalin.plugin.json.JavalinJson;
  * Tests for NoteController
  */
 
- public class NoteControllerSpec {
+public class NoteControllerSpec {
+
+
 
   MockHttpServletRequest mockReq = new MockHttpServletRequest();
   MockHttpServletResponse mockRes = new MockHttpServletResponse();
@@ -50,6 +55,7 @@ import io.javalin.plugin.json.JavalinJson;
   private NoteController noteController;
 
   private ObjectId rachelsId;
+  private BasicDBObject rachel;
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -60,58 +66,57 @@ import io.javalin.plugin.json.JavalinJson;
   public static void setupAll() {
     String mongoAddr = System.getenv().getOrDefault("MONGO_ADDR", "localhost");
 
-    mongoClient = MongoClients.create(
-    MongoClientSettings.builder()
-    .applyToClusterSettings(builder ->
-    builder.hosts(Arrays.asList(new ServerAddress(mongoAddr))))
-    .build());
+    mongoClient = MongoClients.create(MongoClientSettings.builder()
+        .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(mongoAddr)))).build());
 
     db = mongoClient.getDatabase("test");
   }
 
   @BeforeEach
-  public void setupEach() throws IOException {
+  public void setupEach() throws IOException, ParseException {
 
     // Reset our mock request and response objects
     mockReq.resetAll();
     mockRes.resetAll();
 
     // Setup database
-    MongoCollection<Document> userDocuments = db.getCollection("notes");
-    userDocuments.drop();
-    List<Document> testUsers = new ArrayList<>();
-    testUsers.add(Document.parse("{\n" +
+    MongoCollection<Document> noteDocuments = db.getCollection("notes");
+    noteDocuments.drop();
+    List<Document> testNotes = new ArrayList<>();
+    testNotes.add(Document.parse("{\n" +
     "                    owner: \"Jack\",\n" +
     "                    body: \"I will be out of town due to my dog has been severely sick.\",\n" +
-    "                    addDate: \"03-20-2020\",\n" +
-    "                    expirationDate: \"03-21-2020\",\n" +
+    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
+    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
-    testUsers.add(Document.parse("{\n" +
+    testNotes.add(Document.parse("{\n" +
     "                    owner: \"Josh\",\n" +
     "                    body: \"My car is stuck in the ditch my office hours are canceled.\",\n" +
-    "                    addDate: \"01-1-2020\",\n" +
-    "                    expirationDate: \"01-2-2020\",\n" +
+    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
+    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
-    testUsers.add(Document.parse("{\n" +
+    testNotes.add(Document.parse("{\n" +
     "                    owner: \"Trent\",\n" +
     "                    body: \"I will be gone for the rest of the week, I have a track meet.\",\n" +
-    "                    addDate: \"02-24-2020\",\n" +
-    "                    expirationDate: \"02-28-2020\",\n" +
+    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
+    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
     "                    tag: \"class\", \n" +
     "                }"));
 
+
     rachelsId = new ObjectId();
-    BasicDBObject sam = new BasicDBObject("_id", rachelsId);
-    sam = sam.append("owner", "Rachel")
+    rachel = new BasicDBObject("_id", rachelsId);
+    rachel = rachel.append("owner", "Rachel")
       .append("body", "I will be out of the office for faculty meeting and will not be in office hours")
-      .append("addDate", "03-06-2020")
-      .append("expirationDate", "03-06-2020");
+      .append("addDate", "2020-02-20T08:11:00Z")
+      .append("expirationDate", "2020-02-20T08:11:00Z")
+      .append("tag", "office hours");
 
 
-    userDocuments.insertMany(testUsers);
-    userDocuments.insertOne(Document.parse(sam.toJson()));
+    noteDocuments.insertMany(testNotes);
+    noteDocuments.insertOne(Document.parse(rachel.toJson()));
 
     noteController = new NoteController(db);
   }
@@ -129,12 +134,26 @@ import io.javalin.plugin.json.JavalinJson;
      Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
      noteController.getNotes(ctx);
 
-     assertEquals(200, mockRes.getStatus());
+    //  assertEquals(200, mockRes.getStatus());
 
      String result = ctx.resultString();
-     long countNumber = db.getCollection("notes").countDocuments();
-     System.out.println(countNumber);
-     assertEquals(countNumber, JavalinJson.fromJson(result, Note[].class).length);
+
+    //  assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
+ }
+
+ @Test
+ public void GetNoteWithExistentId() throws IOException, ParseException {
+
+   Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", rachelsId.toHexString()));
+   noteController.getNote(ctx);
+
+   assertEquals(200, mockRes.getStatus());
+
+   String result = ctx.resultString();
+   Note resultNote = JavalinJson.fromJson(result, Note.class);
+
+   assertEquals(resultNote._id, rachelsId.toHexString());
+   assertEquals(resultNote.owner, "Rachel");
  }
 
 
