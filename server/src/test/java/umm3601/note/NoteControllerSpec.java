@@ -86,22 +86,22 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Jack\",\n" +
     "                    body: \"I will be out of town due to my dog has been severely sick.\",\n" +
-    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
-    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
+    "                    addDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
+    "                    expirationDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Josh\",\n" +
     "                    body: \"My car is stuck in the ditch my office hours are canceled.\",\n" +
-    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
-    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
+    "                    addDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
+    "                    expirationDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Trent\",\n" +
     "                    body: \"I will be gone for the rest of the week, I have a track meet.\",\n" +
-    "                    addDate: ISODate(\"2020-02-20T08:11:00Z\"),\n" +
-    "                    expirationDate: ISODate(\"2020-02-21T08:11:00Z\"),\n" +
+    "                    addDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
+    "                    expirationDate: {\"$date\" : { \"$numberLong\": \"22337203685477580\" } },\n" +
     "                    tag: \"class\", \n" +
     "                }"));
 
@@ -134,11 +134,11 @@ public class NoteControllerSpec {
      Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
      noteController.getNotes(ctx);
 
-    //  assertEquals(200, mockRes.getStatus());
+     assertEquals(200, mockRes.getStatus());
 
      String result = ctx.resultString();
 
-    //  assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
+     assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
  }
 
  @Test
