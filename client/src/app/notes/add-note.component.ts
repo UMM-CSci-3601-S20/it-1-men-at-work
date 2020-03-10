@@ -22,23 +22,13 @@ export class AddNoteComponent implements OnInit {
   // not sure if this name is magical and making it be found or if I'm missing something,
   // but this is where the red text that shows up (when there is invalid input) comes from
   add_note_validation_messages = {
-    name: [
+    owner: [
       {type: 'required', message: 'Name is required'},
       {type: 'minlength', message: 'Name must be at least 2 characters long'},
       {type: 'maxlength', message: 'Name cannot be more than 50 characters long'},
       {type: 'pattern', message: 'Name must contain only numbers and letters'},
       {type: 'existingName', message: 'Name has already been taken'}
     ],
-
-    email: [
-      {type: 'email', message: 'Email must be formatted properly'},
-      {type: 'required', message: 'Email is required'}
-    ],
-
-    role: [
-      { type: 'required', message: 'Role is required' },
-      { type: 'pattern', message: 'Role must be Admin, Editor, or Viewer' },
-    ]
   };
 
   createForms() {
