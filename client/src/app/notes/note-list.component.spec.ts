@@ -68,8 +68,8 @@ describe('Note list', () => {
     expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Jack')).toBe(true);
   });
 
-  it('contain a user named \'Josh\'', () => {
-    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Josh')).toBe(true);
+  it('contain a user named \'josh\'', () => {
+    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'josh')).toBe(true);
   });
 
   it('contain a user named \'Trent\'', () => {
