@@ -19,27 +19,24 @@ export class NoteListComponent implements OnInit, OnDestroy  {
   getNotesSub: Subscription;
 
   // This is the constructor utilizing note service
-  // constructor(private noteService: NoteService) {
-  // }
+  constructor(private noteService: NoteService) {
+  }
 
-  // getNotesFromServer(): void {
-  //   this.unsub();
-  //   // This line will be fixed with the addition of noteService
-  //   this.getNotesSub = this.noteService.getNotes({
-  //     addDate: this.noteDate
-  //   }).subscribe(returnedNotes => {
-  //     this.serverFilteredNotes = returnedNotes;
-  //     this.updateFilter();
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
+  getNotesFromServer(): void {
+    this.unsub();
+    this.getNotesSub = this.noteService.getNotes().subscribe(returnedNotes => {
+      this.serverFilteredNotes = returnedNotes;
+      this.updateFilter();
+    }, err => {
+      console.log(err);
+    });
+  }
 
   public updateFilter(): void {
   }
 
   ngOnInit(): void {
-    // this.getNotesFromServer();
+    this.getNotesFromServer();
   }
 
   ngOnDestroy(): void {
