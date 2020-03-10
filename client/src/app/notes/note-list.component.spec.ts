@@ -14,11 +14,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
-import { MockUserService } from '../../testing/user.service.mock';
+import { MockNoteService } from '../../testing/note.service.mock';
 import { Note } from './note';
 import { NoteListComponent } from './note-list.component';
-// Fix for NoteService
-// import { UserService } from './user.service';
+import { NoteService } from './note.service';
 import { MatIconModule } from '@angular/material/icon';
 import { splitClasses } from '@angular/compiler';
 
@@ -49,9 +48,7 @@ describe('Note list', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [NoteListComponent],
-        // Provide a test-double instead
-        // Replace with NoteService & MockNote
-      // providers: [{ provide: UserService, useValue: new MockUserService() }]
+      providers: [{ provide: NoteService, useValue: new MockNoteService() }]
     });
   });
 
@@ -62,4 +59,24 @@ describe('Note list', () => {
       fixture.detectChanges();
     });
   }));
+
+  it('contains all the notes', () => {
+    expect(noteList.serverFilteredNotes.length).toBe(3);
+  });
+
+  it('contains a user named \'Jack\'', () => {
+    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Jack')).toBe(true);
+  });
+
+  it('contain a user named \'Josh\'', () => {
+    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Josh')).toBe(true);
+  });
+
+  it('contain a user named \'Trent\'', () => {
+    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Trent')).toBe(true);
+  });
+
+  it('doesn\'t contain a user named \'KK\'', () => {
+    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'KK')).toBe(false);
+  });
 });

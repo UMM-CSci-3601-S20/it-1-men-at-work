@@ -32,8 +32,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
-import { NoteListComponent } from './note-list/note-list.component';
-import { AddNoteComponent } from './notes/add-note/add-note.component';
+import { NoteListComponent } from './notes/note-list.component';
+import { NoteService } from './notes/note.service';
+// import { AddNoteComponent } from './notes/add-note/add-note.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -63,7 +64,7 @@ const MATERIAL_MODULES: any[] = [
     UserProfileComponent,
     AddUserComponent,
     NoteListComponent,
-    AddNoteComponent,
+    // AddNoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+    UserService,
+    NoteService
   ],
   bootstrap: [AppComponent]
 })
