@@ -24,15 +24,12 @@ export class NoteListComponent implements OnInit, OnDestroy  {
 
   getNotesFromServer(): void {
     this.unsub();
-    this.getNotesSub = this.noteService.getNotes().subscribe(returnedNotes => {
+    this.getNotesSub = this.noteService.getNotes()
+    .subscribe(returnedNotes => {
       this.serverFilteredNotes = returnedNotes;
-      this.updateFilter();
     }, err => {
       console.log(err);
     });
-  }
-
-  public updateFilter(): void {
   }
 
   ngOnInit(): void {
