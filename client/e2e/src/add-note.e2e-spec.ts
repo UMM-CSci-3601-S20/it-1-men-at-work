@@ -22,9 +22,7 @@ describe('Add note', () => {
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
     await page.typeInput('bodyField', 'HELLO WORLD');
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
-    await page.typeInput('addDateField', '2020-3-2');
-    expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
-    await page.typeInput('expirationDateField', '2020-3-2');
+    await page.typeInput('tagField', 'office hours');
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
   });
 

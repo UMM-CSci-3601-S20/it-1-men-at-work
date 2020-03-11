@@ -24,7 +24,7 @@ export class NoteService {
   }
 
   addNote(newNote: Note): Observable<string> {
-    // Send post request to add a new user with the user data as the body.
+    // Send post request to add a new note with the note data as the body.
     return this.httpClient.post<{id: string}>(this.noteUrl + '/new', newNote).pipe(map(res => res.id));
   }
 
