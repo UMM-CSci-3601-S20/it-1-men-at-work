@@ -55,7 +55,7 @@ describe('AddNoteComponent', () => {
   // our component definitions don't have errors that would
   // prevent them from being successfully constructed.
   it('should create the component and form', () => {
-    //expect(addNoteComponent).toBeTruthy();
+    expect(addNoteComponent).toBeTruthy();
     expect(addNoteForm).toBeTruthy();
   });
 
@@ -72,7 +72,7 @@ describe('AddNoteComponent', () => {
       ownerControl = addNoteComponent.addNoteForm.controls[`owner`];
     });
 
-    it('should not allow empty names', () => {
+    it('should not allow empty owners', () => {
       ownerControl.setValue('');
       expect(ownerControl.valid).toBeFalsy();
     });
@@ -82,7 +82,7 @@ describe('AddNoteComponent', () => {
       expect(ownerControl.valid).toBeTruthy();
     });
 
-    it('should fail on single character names', () => {
+    it('should fail on single character owners', () => {
       ownerControl.setValue('x');
       expect(ownerControl.valid).toBeFalsy();
       // Annoyingly, Angular uses lowercase 'l' here
@@ -93,7 +93,7 @@ describe('AddNoteComponent', () => {
     // In the real world, you'd want to be pretty careful about
     // setting upper limits on things like name lengths just
     // because there are people with really long names.
-    it('should fail on really long names', () => {
+    it('should fail on really long owners', () => {
       ownerControl.setValue('x'.repeat(100));
       expect(ownerControl.valid).toBeFalsy();
       // Annoyingly, Angular uses lowercase 'l' here
@@ -101,7 +101,7 @@ describe('AddNoteComponent', () => {
       expect(ownerControl.hasError('maxlength')).toBeTruthy();
     });
 
-    it('should not allow a name to contain a symbol', () => {
+    it('should not allow a owner to contain a symbol', () => {
       ownerControl.setValue('bad@email.com');
       expect(ownerControl.valid).toBeFalsy();
       expect(ownerControl.hasError('pattern')).toBeTruthy();
@@ -135,7 +135,7 @@ describe('AddNoteComponent', () => {
 
   describe('The tag field', () => {
     it('should allow empty values', () => {
-      const tagControl = addNoteForm.controls['tag'];
+      const tagControl = addNoteForm.controls[`tag`];
       tagControl.setValue('');
       expect(tagControl.valid).toBeTruthy();
     });
