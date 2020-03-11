@@ -16,6 +16,8 @@ export class AddNoteComponent implements OnInit {
 
   note: Note;
 
+
+
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar, private router: Router) {
   }
 
@@ -23,15 +25,15 @@ export class AddNoteComponent implements OnInit {
   // but this is where the red text that shows up (when there is invalid input) comes from
   add_note_validation_messages = {
     owner: [
-      {type: 'required', message: 'Name is required'},
-      {type: 'minlength', message: 'Name must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Name cannot be more than 50 characters long'},
-      {type: 'pattern', message: 'Name must contain only numbers and letters'},
-      {type: 'existingName', message: 'Name has already been taken'}
+      {type: 'required', message: 'Owner is required'},
+      {type: 'minlength', message: 'Owner must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
+      {type: 'pattern', message: 'Owner must contain only numbers and letters'},
+      {type: 'existingName', message: 'Owner has already been taken'}
     ],
     body: [
       {type: 'pattern', message: 'Body must contain some type of text'},
-      {type: 'required', message: 'Body is required'}
+      // {type: 'required', message: 'Body is required'}
     ],
     // addDate: [
     //   {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
@@ -67,6 +69,7 @@ export class AddNoteComponent implements OnInit {
 
       body: new FormControl('', Validators.compose([
         Validators.required,
+        Validators.pattern('^[a-zA-Z0-9,;./\\n+]+( [a-zA-Z0-9,;./\\n+]+)*$')
       ])),
 
       addDate: new FormControl('', Validators.compose([
