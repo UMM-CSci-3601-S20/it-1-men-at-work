@@ -79,4 +79,5 @@ describe('Note list', () => {
   it('doesn\'t contain a user named \'KK\'', () => {
     expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'KK')).toBe(false);
   });
+
 });

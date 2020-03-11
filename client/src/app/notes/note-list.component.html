@@ -5,22 +5,30 @@
   </div>
 </div>
 
+<mat-card-title class="note-list-title">Post-Its</mat-card-title>
+
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredNotes; else notesError">
     <!-- List view -->
+    <h3 mat-subheader>Post-Its</h3>
+    <mat-card>
     <mat-card-content>
-      <mat-nav-list class="note-nav-list">
-        <h3 mat-subheader>Post-Its</h3>
-        <a mat-list-item *ngFor="let note of this.filteredNotes" [routerLink]="['/notes', note._id]"
-          class="note-list-item">
-          <h3 matLine class="note-list-owner"> {{note.owner}} </h3>
-        </a>
-      </mat-nav-list>
+      <mat-list>
+        <mat-nav-list class="note-nav-list">
+          <mat-list-item *ngFor="let note of this.serverFilteredNotes">
+            <h3 matLine class="note-owner-list">{{note.owner}}</h3>
+            <p matLine class="note-body-list">{{note.body}}</p>
+            <p matLine class="note-addDate-list">{{note.addDate}}</p>
+            <p matLine class="note-expirationDate-list">{{note.expirationDate}}</p>
+            <p matLine class="note-tag-list">{{note.tag}}</p>
+          </mat-list-item>
+          </mat-nav-list>
+      </mat-list>
     </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
-<!-- This is currently routing to the user but will be changed when the notes are fully available. -->
 <ng-template #notesError>
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="notes-error">
     <mat-error>
