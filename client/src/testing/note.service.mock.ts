@@ -32,7 +32,7 @@ export class MockNoteService extends NoteService {
       body: 'I will be gone for the rest of the week, I have a track meet.',
       addDate: new Date(2 - 24 - 2020),
       expirationDate: new Date(2 - 28 - 2020),
-      tag: 'class'
+      tag: 'class time'
     }
   ];
 

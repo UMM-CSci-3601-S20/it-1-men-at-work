@@ -4,7 +4,7 @@ export interface Note {
   body: string;
   addDate: Date;
   expirationDate: Date;
-  tag: 'office hours' | 'personal' | 'class time';
+  tag: 'office hours'|'personal'|'class time';
 
 }
 
