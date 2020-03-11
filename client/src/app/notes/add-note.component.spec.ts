@@ -8,7 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockNoteService } from 'src/testing/note.service.mock';
+import { MockNoteService } from '../../testing/note.service.mock';
 import { AddNoteComponent } from './add-note.component';
 import { NoteService } from './note.service';
 

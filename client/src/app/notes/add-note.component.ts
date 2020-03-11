@@ -33,12 +33,12 @@ export class AddNoteComponent implements OnInit {
       {type: 'pattern', message: 'Body must contain some type of text'},
       {type: 'required', message: 'Body is required'}
     ],
-    addDate: [
-      {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
-    ],
-    expirationDate: [
-      {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
-    ]
+    // addDate: [
+    //   {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
+    // ],
+    // expirationDate: [
+    //   {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
+    // ]
 
   };
 
@@ -65,16 +65,21 @@ export class AddNoteComponent implements OnInit {
         },
       ])),
 
-      addDate: new FormControl(),
-      expirationDate: new FormControl(),
+      body: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+
+      addDate: new FormControl('', Validators.compose([
+      ])),
+      expirationDate: new FormControl('', Validators.compose([
+      ])),
       // We don't care much about what is in the company field, so we just add it here as part of the form
       // without any particular validation.
-      body: new FormControl(),
+
 
       // We don't need a special validator just for our app here, but there is a default one for email.
       // We will require the email, though.
       tag: new FormControl('', Validators.compose([
-        Validators.required,
         Validators.pattern('^(office hours|personal|class time)$'),
       ])),
 
