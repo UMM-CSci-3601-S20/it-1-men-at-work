@@ -29,6 +29,17 @@ export class AddNoteComponent implements OnInit {
       {type: 'pattern', message: 'Name must contain only numbers and letters'},
       {type: 'existingName', message: 'Name has already been taken'}
     ],
+    body: [
+      {type: 'pattern', message: 'Body must contain some type of text'},
+      {type: 'required', message: 'Body is required'}
+    ],
+    addDate: [
+      {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
+    ],
+    expirationDate: [
+      {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
+    ]
+
   };
 
   createForms() {
@@ -47,13 +58,15 @@ export class AddNoteComponent implements OnInit {
         Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s]+$(\\.0-9+)?'),
         (fc) => {
           if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
-            return ({existingName: true});
+            return ({existingOwner: true});
           } else {
             return null;
           }
         },
       ])),
 
+      addDate: new FormControl(),
+      expirationDate: new FormControl(),
       // We don't care much about what is in the company field, so we just add it here as part of the form
       // without any particular validation.
       body: new FormControl(),
