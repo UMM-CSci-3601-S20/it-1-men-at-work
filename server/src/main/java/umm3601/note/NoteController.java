@@ -30,6 +30,9 @@ import io.javalin.http.NotFoundResponse;
  */
 public class NoteController {
 
+  static String bodyRegex = "^[a-zA-Z0-9_\\w!#$%&'*+/=?`{|}~^.-@\\n\\t]+$";
+  static String dateRegex = "^\\d{4}\\-\\d{1,2}\\-\\d{1,2}$";
+
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Note> noteCollection;
@@ -73,6 +76,18 @@ public class NoteController {
   }
 
   public void addNotes(Context ctx) {
+
+    Note newNote = ctx.bodyValidator(Note.class)
+      .check((nte) -> nte.owner != null && nte.owner.length() > 0)
+      .check((nte) -> nte.body.matches(bodyRegex))
+      // .check((nte) -> nte.addDate.toString().matches(dateRegex))
+      // .check((nte) -> nte.expirationDate.toString().matches(dateRegex))
+      .check((nte) -> nte.tag.matches("^(office hours|personal|class time)$"))
+      .get();
+
+    noteCollection.insertOne(newNote);
+    ctx.status(201);
+    ctx.json(ImmutableMap.of("id", newNote._id));
 
   }
 
