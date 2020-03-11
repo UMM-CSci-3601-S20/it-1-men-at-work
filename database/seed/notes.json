@@ -3,7 +3,7 @@
     "_id": {
       "$oid": "58893557546a2daea44da432"
     },
-    "owner": "Connie Stewart",
+    "owner": "Jack Perala",
     "body": "Go to class.",
     "addDate": "2020-03-10",
     "expirationDate": "2020-03-14",
@@ -13,8 +13,8 @@
     "_id": {
       "$oid": "5889375f57546a2daea4db62"
     },
-    "owner": "Connie Stewart",
-    "body": "Go to class.",
+    "owner": "Trent Merkins",
+    "body": "Run Faster!",
     "addDate": "2020-03-10",
     "expirationDate": "2020-03-14",
     "tag": "office hours"
@@ -23,8 +23,8 @@
     "_id": {
       "$oid": "588935f575486a2daea44dc8"
     },
-    "owner": "Connie Stewart",
-    "body": "Go to class.",
+    "owner": "Josh Haman",
+    "body": "Running Late.",
     "addDate": "2020-03-10",
     "expirationDate": "2020-03-14",
     "tag": "office hours"
