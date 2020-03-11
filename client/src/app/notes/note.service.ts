@@ -27,4 +27,5 @@ export class NoteService {
     // Send post request to add a new user with the user data as the body.
     return this.httpClient.post<{id: string}>(this.noteUrl + '/new', newNote).pipe(map(res => res.id));
   }
+
 }

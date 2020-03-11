@@ -73,7 +73,10 @@ export class AddNoteComponent implements OnInit {
 
       // We don't need a special validator just for our app here, but there is a default one for email.
       // We will require the email, though.
-      tag: new FormControl(),
+      tag: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^(office hours|personal|class time)$'),
+      ])),
 
     });
 
