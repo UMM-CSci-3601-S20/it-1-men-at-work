@@ -18,6 +18,9 @@ export class AddNoteComponent implements OnInit {
 
 
 
+
+
+
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar, private router: Router) {
   }
 
@@ -32,8 +35,9 @@ export class AddNoteComponent implements OnInit {
       {type: 'existingName', message: 'Owner has already been taken'}
     ],
     body: [
-      {type: 'pattern', message: 'Body must contain some type of text'},
-      // {type: 'required', message: 'Body is required'}
+      {type: 'pattern', message: 'Body of your note should not contain multiple sapces or end in a space'},
+      {type: 'required', message: 'Body is required'},
+      {type: 'maxlength', message: 'Body can only contain 300 characters'}
     ],
     // addDate: [
     //   {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
@@ -69,7 +73,8 @@ export class AddNoteComponent implements OnInit {
 
       body: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9,;./\\n+]+( [a-zA-Z0-9,;./\\n+]+)*$')
+        Validators.pattern('^[a-zA-Z0-9,;.@\'/\\n+]+( [a-zA-Z0-9,;.@\'/\\n+]+)*$'),
+        Validators.maxLength(300),
       ])),
 
       // addDate: new FormControl('', Validators.compose([
@@ -97,9 +102,14 @@ export class AddNoteComponent implements OnInit {
 
   submitForm() {
     this.noteService.addNote(this.addNoteForm.value).subscribe(newID => {
-      this.snackBar.open('Added Note ' + this.addNoteForm.value.owner, null, {
-        duration: 2000,
+      let snackBarAdd = this.snackBar.open('Added Note ' + this.addNoteForm.value.owner);
+      let snackBarBack = this.snackBar.open('Use BACK button to view your added notes');
+      this.snackBar.open('Added Note ' + this.addNoteForm.value.owner, 'Use BACK button to view your notes', {
+        duration: 3000,
       });
+      // this.snackBar.open('Use BACK button to view your added notes', null, {
+      //   duration: 2500,
+      // });
       this.router.navigate(['/notes/', newID]);
     }, err => {
       this.snackBar.open('Failed to add the note', null, {
