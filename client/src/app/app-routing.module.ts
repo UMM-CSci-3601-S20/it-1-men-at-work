@@ -5,14 +5,16 @@ import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
 import { NoteListComponent } from './notes/note-list.component';
+import { ViewerPageComponent} from './notes/viewer-page.component';
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  // {path: '', component: HomeComponent},
+  {path: '', component: NoteListComponent},
   {path: 'users', component: UserListComponent},
   {path: 'users/new', component: AddUserComponent},
   {path: 'users/:id', component: UserProfileComponent},
-  {path: 'notes', component: NoteListComponent},
+  {path: 'viewer', component: ViewerPageComponent}
   // {path: "notes/viewer-page"}
 ];
 

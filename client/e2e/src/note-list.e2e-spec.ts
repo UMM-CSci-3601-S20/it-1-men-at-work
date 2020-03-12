@@ -12,7 +12,7 @@ describe('Note list', () => {
 
   // Testing to check that the title matches the webpage title
   it('Should have the correct title', () => {
-    expect(page.getNoteTitle()).toEqual('Post-Its');
+    expect(page.getNoteTitle()).toEqual('Virtual Note');
   });
 
   // Testing to check that the specified owner is present in the list
