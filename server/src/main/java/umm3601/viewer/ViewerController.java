@@ -37,7 +37,7 @@ public class ViewerController{
   private final MongoCollection<Note> viewerCollection;
 
   public ViewerController(MongoDatabase database) {
-    jacksonCodecRegistry.addCodecForClass(Viewer.class);
+    jacksonCodecRegistry.addCodecForClass(Note.class);
     viewerCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
@@ -69,7 +69,7 @@ public class ViewerController{
 
     ctx.json(viewerCollection.find(filters.isEmpty() ? new Document() : and(filters))
     // .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
-    .into(new ArrayList<>()));
+    .into(new ArrayList<Note>()));
 
 
   }
