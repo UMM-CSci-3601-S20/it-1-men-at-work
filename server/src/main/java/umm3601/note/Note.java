@@ -12,8 +12,6 @@ public class Note {
 
   public String owner;
   public String body;
-  public Date addDate;
-  public Date expirationDate;
   public String tag;
 
 }
