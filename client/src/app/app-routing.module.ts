@@ -10,9 +10,9 @@ import { NoteListComponent } from './notes/note-list.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'users', component: UserListComponent},
-  {path: 'users/new', component: AddUserComponent},
-  {path: 'users/:id', component: UserProfileComponent},
+  // {path: 'users', component: UserListComponent},
+  // {path: 'users/new', component: AddUserComponent},
+  // {path: 'users/:id', component: UserProfileComponent},
   {path: 'notes', component: NoteListComponent},
   {path: 'notes/new', component: AddNoteComponent}
 ];
