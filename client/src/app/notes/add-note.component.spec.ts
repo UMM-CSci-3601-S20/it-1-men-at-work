@@ -129,7 +129,7 @@ describe('AddNoteComponent', () => {
     it('should allow empty values', () => {
       const bodyControl = addNoteForm.controls[`body`];
       bodyControl.setValue('');
-      expect(bodyControl.valid).toBeTruthy();
+      expect(bodyControl.valid).toBe(false);
     });
   });
 
@@ -137,7 +137,7 @@ describe('AddNoteComponent', () => {
     it('should allow empty values', () => {
       const tagControl = addNoteForm.controls[`tag`];
       tagControl.setValue('');
-      expect(tagControl.valid).toBeTruthy();
+      expect(tagControl.valid).toBe(false);
     });
 
   });
