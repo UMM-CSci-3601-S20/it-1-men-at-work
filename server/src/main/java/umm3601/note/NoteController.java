@@ -85,6 +85,7 @@ public class NoteController {
       .check((nte) -> nte.tag.matches("^(office hours|personal|class time)$"))
       .get();
 
+    System.out.println(newNote);
     noteCollection.insertOne(newNote);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newNote._id));
