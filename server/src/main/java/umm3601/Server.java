@@ -64,6 +64,9 @@ public class Server {
     // List all notes for owner
     server.get("api/notes", noteController::getNotes);
 
+    // Add new note
+    server.post("api/notes/new", noteController::addNotes);
+
     // List all notes for viewer
     server.get("api/viewers", viewerController::getNotes);
 

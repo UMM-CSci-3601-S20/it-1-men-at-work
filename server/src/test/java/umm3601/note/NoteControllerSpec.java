@@ -156,5 +156,36 @@ public class NoteControllerSpec {
    assertEquals(resultNote.owner, "Rachel");
  }
 
+ @Test
+ public void AddNote() throws IOException {
+
+   String testNewNote = "{\n\t\"owner\": \"Test Note\",\n\t\"body\": \"testers\",\n\t\"tag\": \"class time\"\n}";
+   mockReq.setBodyContent(testNewNote);
+   mockReq.setMethod("POST");
+
+   Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/new");
+
+   noteController.addNotes(ctx);
+
+   assertEquals(201, mockRes.getStatus());
+
+   String result = ctx.resultString();
+   String id = jsonMapper.readValue(result, ObjectNode.class).get("id").asText();
+   assertNotEquals("", id);
+   System.out.println(id);
+
+   assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
+
+   //verify user was added to the database and the correct ID
+   Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
+   assertNotNull(addedNote);
+   assertEquals("Test Note", addedNote.getString("owner"));
+   assertEquals("testers", addedNote.getString("body"));
+  //  assertEquals("Thu Feb 20 02:11:00 CST 2020", addedNote.getDate("addDate").toString());
+  //  assertEquals("Thu Feb 20 02:11:00 CST 2020", addedNote.getDate("expirationDate").toString());
+   assertEquals("class time", addedNote.getString("tag"));
+
+ }
+
 
 }
