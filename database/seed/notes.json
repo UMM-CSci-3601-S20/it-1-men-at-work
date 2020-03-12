@@ -1,0 +1,26 @@
+[
+  {
+    "_id": {
+      "$oid": "58893557546a2daea44da432"
+    },
+    "owner": "Jack Perala",
+    "body": "At a meeting in Minneapolis.",
+    "tag": "Personal"
+  },
+  {
+    "_id": {
+      "$oid": "5889375f57546a2daea4db62"
+    },
+    "owner": "Trent Merkins",
+    "body": "Class is cancelled today",
+    "tag": "Course 3601"
+  },
+  {
+    "_id": {
+      "$oid": "588935f575486a2daea44dc8"
+    },
+    "owner": "Josh Haman",
+    "body": "Running five minutes late for office hours.",
+    "tag": "Office Hours"
+  }
+]

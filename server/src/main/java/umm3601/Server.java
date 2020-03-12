@@ -9,12 +9,13 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
-
+import umm3601.note.NoteController;
 import umm3601.user.UserController;
+import umm3601.viewer.ViewerController;
 
 public class Server {
 
-  static String appName = "CSCI 3601 Iteration Template";
+  static String appName = "Virtual Post-It";
 
   private static MongoDatabase database;
 
@@ -37,6 +38,8 @@ public class Server {
 
     // Initialize dependencies
     UserController userController = new UserController(database);
+    NoteController noteController = new NoteController(database);
+    ViewerController viewerController = new ViewerController(database);
     //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
 
     Javalin server = Javalin.create().start(4567);
@@ -52,11 +55,22 @@ public class Server {
 
     server.delete("api/users/:id", userController::deleteUser);
 
+    // Get specific note
+    server.get("api/notes/:id", noteController::getNote);
+
     // List users, filtered using query parameters
     server.get("api/users", userController::getUsers);
 
+    // List all notes for owner
+    server.get("api/notes", noteController::getNotes);
+
+    // List all notes for viewer
+    server.get("api/viewers", viewerController::getNotes);
+
     // Add new user
     server.post("api/users/new", userController::addNewUser);
+
+
 
 
 
