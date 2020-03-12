@@ -1,26 +1,19 @@
-<div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
-    <div fxLayout="row wrap" fxLayoutGap="10px">
-    </div>
-  </div>
-</div>
 
-<mat-card-title class="note-list-title">Post-Its</mat-card-title>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredNotes; else notesError">
+  <div fxFlex fxFlex.gt-sm="80" fxFlex.lt-md="100" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredNotes; else notesError">
     <!-- List view -->
-    <h3 mat-subheader>Post-Its</h3>
     <mat-card>
-    <mat-card-content>
+      <mat-card-header>
+        <mat-card-title class="note-list-title">Virtual Note</mat-card-title>
+      </mat-card-header>
+    <mat-card-content class ="note-list-block">
       <mat-list>
         <mat-nav-list class="note-nav-list">
           <mat-list-item *ngFor="let note of this.serverFilteredNotes">
             <h3 matLine class="note-owner-list">{{note.owner}}</h3>
-            <p matLine class="note-body-list">{{note.body}}</p>
-            <p matLine class="note-addDate-list">{{note.addDate}}</p>
-            <p matLine class="note-expirationDate-list">{{note.expirationDate}}</p>
             <p matLine class="note-tag-list">{{note.tag}}</p>
+            <p matLine class="note-body-list">{{note.body}}</p>
           </mat-list-item>
           </mat-nav-list>
       </mat-list>
