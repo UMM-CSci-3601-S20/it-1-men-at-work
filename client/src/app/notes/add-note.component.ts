@@ -72,10 +72,10 @@ export class AddNoteComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9,;./\\n+]+( [a-zA-Z0-9,;./\\n+]+)*$')
       ])),
 
-      addDate: new FormControl('', Validators.compose([
-      ])),
-      expirationDate: new FormControl('', Validators.compose([
-      ])),
+      // addDate: new FormControl('', Validators.compose([
+      // ])),
+      // expirationDate: new FormControl('', Validators.compose([
+      // ])),
       // We don't care much about what is in the company field, so we just add it here as part of the form
       // without any particular validation.
 

@@ -30,8 +30,8 @@ describe('Add note', () => {
     const note: TestNote = {
       owner: E2EUtil.randomText(10),
       body: E2EUtil.randomText(100),
-      addDate: new Date(2-3-2020),
-      expirationDate: new Date(2-3-2020),
+      // addDate: new Date(2-3-2020),
+      // expirationDate: new Date(2-3-2020),
       tag: 'office hours'
     };
 
@@ -46,8 +46,8 @@ describe('Add note', () => {
 
     expect(element(by.className('note-list-owner')).getText()).toEqual(note.owner);
     expect(element(by.className('note-list-company')).getText()).toEqual(note.body);
-    expect(element(by.className('note-list-addDate')).getText()).toEqual(note.addDate);
-    expect(element(by.className('note-list-expirationDate')).getText()).toEqual(note.expirationDate);
+    // expect(element(by.className('note-list-addDate')).getText()).toEqual(note.addDate);
+    // expect(element(by.className('note-list-expirationDate')).getText()).toEqual(note.expirationDate);
     expect(element(by.className('note-list-tag')).getText()).toEqual(note.tag);
   });
 
