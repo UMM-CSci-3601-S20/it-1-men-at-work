@@ -110,8 +110,8 @@ public class NoteControllerSpec {
     rachel = new BasicDBObject("_id", rachelsId);
     rachel = rachel.append("owner", "Rachel")
       .append("body", "I will be out of the office for faculty meeting and will not be in office hours")
-      .append("addDate", "2020-02-20T08:11:00Z")
-      .append("expirationDate", "2020-02-20T08:11:00Z")
+      // .append("addDate", "2020-02-20T08:11:00Z")
+      // .append("expirationDate", "2020-02-20T08:11:00Z")
       .append("tag", "office hours");
 
 
