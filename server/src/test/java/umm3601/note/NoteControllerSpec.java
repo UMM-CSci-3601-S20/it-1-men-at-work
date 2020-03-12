@@ -86,22 +86,22 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Jack\",\n" +
     "                    body: \"I will be out of town due to my dog has been severely sick.\",\n" +
-    "                    addDate: \"2020-02-20T08:11:00Z\",\n" +
-    "                    expirationDate: \"2020-02-20T08:11:00Z\" ,\n" +
+    // "                    addDate: \"2020-02-20T08:11:00Z\",\n" +
+    // "                    expirationDate: \"2020-02-20T08:11:00Z\" ,\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Josh\",\n" +
     "                    body: \"My car is stuck in the ditch my office hours are canceled.\",\n" +
-    "                    addDate: \"2020-02-20T08:11:00Z\" ,\n" +
-    "                    expirationDate: \"2020-02-20T08:11:00Z\" ,\n" +
+    // "                    addDate: \"2020-02-20T08:11:00Z\" ,\n" +
+    // "                    expirationDate: \"2020-02-20T08:11:00Z\" ,\n" +
     "                    tag: \"office hours\", \n" +
     "                }"));
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Trent\",\n" +
     "                    body: \"I will be gone for the rest of the week, I have a track meet.\",\n" +
-    "                    addDate: \"2020-02-20T08:11:00Z\" ,\n" +
-    "                    expirationDate: \"2020-02-20T08:11:00Z\",\n" +
+    // "                    addDate: \"2020-02-20T08:11:00Z\" ,\n" +
+    // "                    expirationDate: \"2020-02-20T08:11:00Z\",\n" +
     "                    tag: \"class\", \n" +
     "                }"));
 
@@ -110,8 +110,8 @@ public class NoteControllerSpec {
     rachel = new BasicDBObject("_id", rachelsId);
     rachel = rachel.append("owner", "Rachel")
       .append("body", "I will be out of the office for faculty meeting and will not be in office hours")
-      .append("addDate", "2020-02-20T08:11:00Z")
-      .append("expirationDate", "2020-02-20T08:11:00Z")
+      // .append("addDate", "2020-02-20T08:11:00Z")
+      // .append("expirationDate", "2020-02-20T08:11:00Z")
       .append("tag", "office hours");
 
 

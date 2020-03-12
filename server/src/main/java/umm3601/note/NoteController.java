@@ -65,11 +65,11 @@ public class NoteController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
-    String sortOrder = ctx.queryParam("sortorder", "desc");
+    // String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
+    // String sortOrder = ctx.queryParam("sortorder", "desc");
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
+    // .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
     .into(new ArrayList<>()));
 
 
