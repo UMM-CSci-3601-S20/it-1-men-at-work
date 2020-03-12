@@ -17,10 +17,6 @@ export class AddNoteComponent implements OnInit {
   note: Note;
 
 
-
-
-
-
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar, private router: Router) {
   }
 
@@ -35,10 +31,15 @@ export class AddNoteComponent implements OnInit {
       {type: 'existingName', message: 'Owner has already been taken'}
     ],
     body: [
-      {type: 'pattern', message: 'Body of your note should not contain multiple sapces or end in a space'},
+      {type: 'pattern', message: 'Body of your announcement should not contain multiple spaces between words' +
+'                                 or end the announcement with a space'},
       {type: 'required', message: 'Body is required'},
       {type: 'maxlength', message: 'Body can only contain 300 characters'}
     ],
+
+    /**
+     * These will need to have validating messages.
+     */
     // addDate: [
     //   {type: 'pattern', message: 'For testing purposes, this should be in ISO format'}
     // ],
@@ -73,10 +74,17 @@ export class AddNoteComponent implements OnInit {
 
       body: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9,;.@\'/\\n+]+( [a-zA-Z0-9,;.@\'/\\n+]+)*$'),
+         /**
+          * This regex adds is suppose to add any word, digit, symbol first,
+          * followed by a space and then anything else.
+          */
+        Validators.pattern('^[a-zA-Z0-9,;.@!&?(){}_`~+=\\-\\[\\]%^*<>:\"\'/\\n]+( [a-zA-Z0-9,;.@!&?(){}_`~+=\\-\\[\\]%^*\"\'<>:/\\n]+)*$'),
         Validators.maxLength(300),
       ])),
 
+      /**
+       * These will dates will need validators for their form group
+       */
       // addDate: new FormControl('', Validators.compose([
       // ])),
       // expirationDate: new FormControl('', Validators.compose([
@@ -102,14 +110,9 @@ export class AddNoteComponent implements OnInit {
 
   submitForm() {
     this.noteService.addNote(this.addNoteForm.value).subscribe(newID => {
-      let snackBarAdd = this.snackBar.open('Added Note ' + this.addNoteForm.value.owner);
-      let snackBarBack = this.snackBar.open('Use BACK button to view your added notes');
-      this.snackBar.open('Added Note ' + this.addNoteForm.value.owner, 'Use BACK button to view your notes', {
-        duration: 3000,
+      this.snackBar.open('Added Note ' + this.addNoteForm.value.owner, 'BACK to view your notes', {
+        duration: 4500,
       });
-      // this.snackBar.open('Use BACK button to view your added notes', null, {
-      //   duration: 2500,
-      // });
       this.router.navigate(['/notes/', newID]);
     }, err => {
       this.snackBar.open('Failed to add the note', null, {
