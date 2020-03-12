@@ -4,7 +4,7 @@ import { NoteService } from './note.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-note-list-component',
+  selector: 'app-viewer-page-component',
   templateUrl: 'viewer-page.component.html',
   styleUrls: ['./viewer-page.component.scss'],
   providers: []

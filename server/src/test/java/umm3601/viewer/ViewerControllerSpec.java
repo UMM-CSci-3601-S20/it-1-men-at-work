@@ -40,7 +40,7 @@ import io.javalin.plugin.json.JavalinJson;
 import umm3601.note.Note;
 
 /**
-* Tests the logic of the UserController
+* Tests the logic of the ViewerController
 *
 * @throws IOException
 */
@@ -121,6 +121,7 @@ public class ViewerControllerSpec{
   @Test
   public void getAllNotes() throws IOException {
      // Create our fake Javalin context
+
      Context ctx = ContextUtil.init(mockReq, mockRes, "api/viewers");
      viewerController.getNotes(ctx);
 
@@ -130,8 +131,4 @@ public class ViewerControllerSpec{
 
      assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
  }
-
-
-
-
 }

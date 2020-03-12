@@ -36,8 +36,6 @@ public class ViewerController{
 
   private final MongoCollection<Note> viewerCollection;
 
-
-
   public ViewerController(MongoDatabase database) {
     jacksonCodecRegistry.addCodecForClass(Viewer.class);
     viewerCollection = database.getCollection("notes").withDocumentClass(Note.class)

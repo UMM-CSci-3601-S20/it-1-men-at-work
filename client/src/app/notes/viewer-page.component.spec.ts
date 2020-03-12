@@ -18,6 +18,7 @@ import { MockNoteService } from '../../testing/note.service.mock';
 import { Note } from './note';
 import { NoteListComponent } from './note-list.component';
 import { NoteService } from './note.service';
+import { ViewerPageComponent} from './viewer-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { splitClasses } from '@angular/compiler';
 
@@ -42,42 +43,42 @@ const COMMON_IMPORTS: any[] = [
 describe('Viewer Page', () => {
 
   let viewerPage: ViewerPageComponent;
-  let fixture: ComponentFixture<NoteListComponent>;
+  let fixture: ComponentFixture<ViewerPageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
-      declarations: [NoteListComponent],
+      declarations: [ViewerPageComponent],
       providers: [{ provide: NoteService, useValue: new MockNoteService() }]
     });
   });
 
   beforeEach(async(() => {
     TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(NoteListComponent);
-      noteList = fixture.componentInstance;
+      fixture = TestBed.createComponent(ViewerPageComponent);
+      viewerPage = fixture.componentInstance;
       fixture.detectChanges();
     });
   }));
 
   it('contains all the notes', () => {
-    expect(noteList.serverFilteredNotes.length).toBe(3);
+    expect(viewerPage.serverFilteredNotes.length).toBe(3);
   });
 
   it('contains a user named \'Jack\'', () => {
-    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Jack')).toBe(true);
+    expect(viewerPage.serverFilteredNotes.some((note: Note) => note.owner === 'Jack')).toBe(true);
   });
 
   it('contain a user named \'josh\'', () => {
-    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'josh')).toBe(true);
+    expect(viewerPage.serverFilteredNotes.some((note: Note) => note.owner === 'josh')).toBe(true);
   });
 
   it('contain a user named \'Trent\'', () => {
-    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'Trent')).toBe(true);
+    expect(viewerPage.serverFilteredNotes.some((note: Note) => note.owner === 'Trent')).toBe(true);
   });
 
   it('doesn\'t contain a user named \'KK\'', () => {
-    expect(noteList.serverFilteredNotes.some((note: Note) => note.owner === 'KK')).toBe(false);
+    expect(viewerPage.serverFilteredNotes.some((note: Note) => note.owner === 'KK')).toBe(false);
   });
 
 });
