@@ -1,4 +1,4 @@
-package umm3601.note;
+package umm3601.viewer;
 
 import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,11 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,22 +37,20 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
+import umm3601.note.Note;
 
 /**
- * Tests for NoteController
- */
+* Tests the logic of the UserController
+*
+* @throws IOException
+*/
 
-public class NoteControllerSpec {
-
-
+public class ViewerControllerSpec{
 
   MockHttpServletRequest mockReq = new MockHttpServletRequest();
   MockHttpServletResponse mockRes = new MockHttpServletResponse();
 
-  private NoteController noteController;
-
-  private ObjectId rachelsId;
-  private BasicDBObject rachel;
+  private ViewerController viewerController;
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -66,23 +61,27 @@ public class NoteControllerSpec {
   public static void setupAll() {
     String mongoAddr = System.getenv().getOrDefault("MONGO_ADDR", "localhost");
 
-    mongoClient = MongoClients.create(MongoClientSettings.builder()
-        .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(mongoAddr)))).build());
+    mongoClient = MongoClients.create(
+    MongoClientSettings.builder()
+    .applyToClusterSettings(builder ->
+    builder.hosts(Arrays.asList(new ServerAddress(mongoAddr))))
+    .build());
 
     db = mongoClient.getDatabase("test");
   }
 
   @BeforeEach
-  public void setupEach() throws IOException, ParseException {
+  public void setupEach() throws IOException {
 
     // Reset our mock request and response objects
     mockReq.resetAll();
     mockRes.resetAll();
 
     // Setup database
-    MongoCollection<Document> noteDocuments = db.getCollection("notes");
-    noteDocuments.drop();
+    MongoCollection<Document> viewerDocuments = db.getCollection("notes");
+    viewerDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
+
     testNotes.add(Document.parse("{\n" +
     "                    owner: \"Jack\",\n" +
     "                    body: \"I will be out of town due to my dog has been severely sick.\",\n" +
@@ -105,20 +104,10 @@ public class NoteControllerSpec {
     "                    tag: \"class\", \n" +
     "                }"));
 
+    viewerDocuments.insertMany(testNotes);
 
-    rachelsId = new ObjectId();
-    rachel = new BasicDBObject("_id", rachelsId);
-    rachel = rachel.append("owner", "Rachel")
-      .append("body", "I will be out of the office for faculty meeting and will not be in office hours")
-      .append("addDate", "2020-02-20T08:11:00Z")
-      .append("expirationDate", "2020-02-20T08:11:00Z")
-      .append("tag", "office hours");
+    viewerController = new ViewerController(db);
 
-
-    noteDocuments.insertMany(testNotes);
-    noteDocuments.insertOne(Document.parse(rachel.toJson()));
-
-    noteController = new NoteController(db);
   }
 
 
@@ -128,11 +117,12 @@ public class NoteControllerSpec {
     mongoClient.close();
   }
 
+
   @Test
   public void getAllNotes() throws IOException {
      // Create our fake Javalin context
-     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
-     noteController.getNotes(ctx);
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/viewers");
+     viewerController.getNotes(ctx);
 
      assertEquals(200, mockRes.getStatus());
 
@@ -141,20 +131,7 @@ public class NoteControllerSpec {
      assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
  }
 
- @Test
- public void GetNoteWithExistentId() throws IOException, ParseException {
 
-   Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", rachelsId.toHexString()));
-   noteController.getNote(ctx);
-
-   assertEquals(200, mockRes.getStatus());
-
-   String result = ctx.resultString();
-   Note resultNote = JavalinJson.fromJson(result, Note.class);
-
-   assertEquals(resultNote._id, rachelsId.toHexString());
-   assertEquals(resultNote.owner, "Rachel");
- }
 
 
 }

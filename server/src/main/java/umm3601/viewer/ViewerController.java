@@ -1,4 +1,4 @@
-package umm3601.note;
+package umm3601.viewer;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -24,19 +24,23 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import umm3601.note.Note;
+
 
 /**
- * This controller is to manage requests for info about notes
+ * Controller that manages requests for info about viewer.
  */
-public class NoteController {
+public class ViewerController{
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
-  private final MongoCollection<Note> noteCollection;
+  private final MongoCollection<Note> viewerCollection;
 
-  public NoteController(MongoDatabase mongo) {
-    jacksonCodecRegistry.addCodecForClass(Note.class);
-    noteCollection = mongo.getCollection("notes").withDocumentClass(Note.class)
+
+
+  public ViewerController(MongoDatabase database) {
+    jacksonCodecRegistry.addCodecForClass(Viewer.class);
+    viewerCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
 
@@ -46,7 +50,7 @@ public class NoteController {
     Note note;
 
     try {
-      note = noteCollection.find(eq("_id", new ObjectId(id))).first();
+      note = viewerCollection.find(eq("_id", new ObjectId(id))).first();
     } catch(IllegalArgumentException e) {
       throw new BadRequestResponse("The requested note id wasn't a legal Mongo Object ID.");
     }
@@ -65,22 +69,17 @@ public class NoteController {
     // String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
     // String sortOrder = ctx.queryParam("sortorder", "desc");
 
-    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    ctx.json(viewerCollection.find(filters.isEmpty() ? new Document() : and(filters))
     // .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
     .into(new ArrayList<>()));
 
 
   }
 
-  public void addNotes(Context ctx) {
 
-  }
 
-  public void deleteNotes(Context ctx) {
 
-  }
-
-    /**
+   /**
    * Utility function to generate the md5 hash for a given string
    *
    * @param str the string to generate a md5 for

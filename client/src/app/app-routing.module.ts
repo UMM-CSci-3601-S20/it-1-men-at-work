@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'users/new', component: AddUserComponent},
   {path: 'users/:id', component: UserProfileComponent},
   {path: 'notes', component: NoteListComponent},
+  // {path: "notes/viewer-page"}
 ];
 
 @NgModule({
