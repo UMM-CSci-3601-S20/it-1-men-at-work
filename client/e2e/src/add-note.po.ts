@@ -3,8 +3,6 @@ import {browser, by, element, Key, ElementFinder} from 'protractor';
 export interface TestNote {
   owner: string;
   body: string;
-  addDate?: Date;
-  expirationDate?: Date;
   tag: 'office hours' | 'personal' | 'class time';
 }
 
