@@ -33,7 +33,8 @@ is potentially helpful and contributed to the shaping of this example -->
               </mat-error>
           </mat-form-field>
 
-          <!-- <mat-form-field>
+          <!-- These dates will eventually be apart of the notes field
+            <mat-form-field>
             <mat-label>Add Date</mat-label>
             <input matInput #input id="addDateField" formControlName="addDate" placeholder="addDate"
                   formControlName="addDate" >
@@ -64,7 +65,7 @@ is potentially helpful and contributed to the shaping of this example -->
                   [disabled]="!addNoteForm.valid" type="submit">
                   ADD NOTE
           </button>
-          <button mat-button id="backToNotesButton" type="button" color="primary" routerLink="/notes/">
+          <button mat-button id="backToNotesButton" type="button" color="primary" routerLink="">
             BACK
           </button>
         </mat-card-actions>
