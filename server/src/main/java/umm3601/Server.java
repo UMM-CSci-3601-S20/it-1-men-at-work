@@ -15,7 +15,7 @@ import umm3601.viewer.ViewerController;
 
 public class Server {
 
-  static String appName = "Virtual Post-It";
+  static String appName = "Virtual Note";
 
   private static MongoDatabase database;
 
