@@ -10,8 +10,8 @@ import { ViewerPageComponent} from './notes/viewer-page.component';
 
 
 const routes: Routes = [
-  {path: 'notes/new', component: AddNoteComponent}
   {path: '', component: NoteListComponent},
+  {path: 'notes/new', component: AddNoteComponent},
   {path: 'users', component: UserListComponent},
   {path: 'users/new', component: AddUserComponent},
   {path: 'users/:id', component: UserProfileComponent},
