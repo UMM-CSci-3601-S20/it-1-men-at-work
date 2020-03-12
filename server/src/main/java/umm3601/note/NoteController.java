@@ -30,6 +30,9 @@ import io.javalin.http.NotFoundResponse;
  */
 public class NoteController {
 
+  static String bodyRegex = "^\\w+( +\\w+)*$";
+  static String dateRegex = "^\\d{4}\\-\\d{1,2}\\-\\d{1,2}$";
+
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Note> noteCollection;
@@ -62,17 +65,30 @@ public class NoteController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
-    String sortOrder = ctx.queryParam("sortorder", "desc");
+    // String sortBy = ctx.queryParam("sortby", "addDate"); //Sort by sort query param, default is name
+    // String sortOrder = ctx.queryParam("sortorder", "desc");
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
+    // .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
     .into(new ArrayList<>()));
 
 
   }
 
   public void addNotes(Context ctx) {
+
+    Note newNote = ctx.bodyValidator(Note.class)
+      .check((nte) -> nte.owner != null && nte.owner.length() > 0)
+      .check((nte) -> nte.body != null && nte.body.length() > 0)
+      // .check((nte) -> nte.addDate.toString().matches(dateRegex))
+      // .check((nte) -> nte.expirationDate.toString().matches(dateRegex))
+      .check((nte) -> nte.tag.matches("^(office hours|personal|class time)$"))
+      .get();
+
+    System.out.println(newNote);
+    noteCollection.insertOne(newNote);
+    ctx.status(201);
+    ctx.json(ImmutableMap.of("id", newNote._id));
 
   }
 
