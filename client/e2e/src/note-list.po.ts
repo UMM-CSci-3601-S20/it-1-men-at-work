@@ -3,7 +3,7 @@ import {browser, by, element, Key, ElementFinder} from 'protractor';
 export class NotePage {
 
   navigateTo() {
-    return browser.get('/notes');
+    return browser.get('');
   }
 
   getUrl() {

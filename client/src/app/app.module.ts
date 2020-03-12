@@ -33,6 +33,7 @@ import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
 import { NoteService } from './notes/note.service';
+import { ViewerPageComponent } from './notes/viewer-page.component';
 import { AddNoteComponent } from './notes/add-note.component';
 import { NoteListComponent } from './notes/note-list.component';
 
@@ -65,6 +66,7 @@ const MATERIAL_MODULES: any[] = [
     AddUserComponent,
     AddNoteComponent,
     NoteListComponent,
+    ViewerPageComponent,
   ],
   imports: [
     BrowserModule,

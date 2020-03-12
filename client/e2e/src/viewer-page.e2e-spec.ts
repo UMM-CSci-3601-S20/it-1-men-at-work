@@ -1,12 +1,12 @@
-import {NotePage} from './note-list.po';
+import {ViewerPage} from './viewer-page.po';
 import {browser, protractor, by, element} from 'protractor';
 
-describe('Note list', () => {
-  let page: NotePage;
+describe('Viewer Page', () => {
+  let page: ViewerPage;
   const EC = protractor.ExpectedConditions;
 
   beforeEach(() => {
-    page = new NotePage();
+    page = new ViewerPage();
     page.navigateTo();
   });
 

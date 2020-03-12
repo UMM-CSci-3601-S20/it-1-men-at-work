@@ -1,18 +1,18 @@
-import {NotePage} from './note-list.po';
+import {ViewerPage} from './viewer-page.po';
 import {browser, protractor, by, element} from 'protractor';
 
-describe('Note list', () => {
-  let page: NotePage;
+describe('Viewer Page', () => {
+  let page: ViewerPage;
   const EC = protractor.ExpectedConditions;
 
   beforeEach(() => {
-    page = new NotePage();
+    page = new ViewerPage();
     page.navigateTo();
   });
 
   // Testing to check that the title matches the webpage title
   it('Should have the correct title', () => {
-    expect(page.getNoteTitle()).toEqual('Virtual Note');
+    expect(page.getNoteTitle()).toEqual('Post-Its');
   });
 
   // Testing to check that the specified owner is present in the list
