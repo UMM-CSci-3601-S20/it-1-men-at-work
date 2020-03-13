@@ -15,6 +15,8 @@ export class NoteListComponent implements OnInit, OnDestroy  {
   public serverFilteredNotes: Note[];
   public filteredNotes: Note[];
 
+  // This is for the server use, this should be a sort by in the server
+  // for the date.
   public noteDate: Date;
   getNotesSub: Subscription;
 
