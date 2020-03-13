@@ -43,9 +43,6 @@ export class AddNotePage {
     // if (newNote.addDate) {
     //   await this.typeInput('addDateField', newNote.addDate);
     // }
-    if (newNote.tag) {
-      await this.typeInput('tagField', newNote.tag);
-    }
     await this.selectMatSelectValue('tagField', newNote.tag);
     return this.clickAddUser();
   }
