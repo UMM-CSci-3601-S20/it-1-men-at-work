@@ -36,6 +36,6 @@ describe('AppComponent', () => {
   it(`should have a title 'Virtual Note'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('-It');
+    expect(app.title).toEqual('Virtual Note');
   });
 });

@@ -13,7 +13,7 @@ describe('App', () => {
 
   it('Should have the correct title', () => {
     page.navigateTo();
-    expect(page.getAppTitle()).toEqual('-It');
+    expect(page.getAppTitle()).toEqual('Virtual Note');
   });
 
   it('Should open the sidenav', () => {
