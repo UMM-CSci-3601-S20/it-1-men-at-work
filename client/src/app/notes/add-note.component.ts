@@ -113,7 +113,7 @@ export class AddNoteComponent implements OnInit {
       this.snackBar.open('Added Note ' + this.addNoteForm.value.owner, 'BACK to view your notes', {
         duration: 4500,
       });
-      this.router.navigate(['/notes/', newID]);
+      this.router.navigate(['']);
     }, err => {
       this.snackBar.open('Failed to add the note', null, {
         duration: 2000,
